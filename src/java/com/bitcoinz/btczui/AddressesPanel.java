@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -334,12 +335,13 @@ public class AddressesPanel
 	private JTable createAddressBalanceTable(String rowData[][])
 		throws WalletCallException, IOException, InterruptedException
 	{
-		String columnNames[] = { "Balance", "Confirmed?", "Address" };
+		String columnNames[] = { "Balance", "Confirmed?", "", "Address" };
         JTable table = new AddressTable(rowData, columnNames, this.clientCaller);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.getColumnModel().getColumn(0).setPreferredWidth(160);
         table.getColumnModel().getColumn(1).setPreferredWidth(140);
-        table.getColumnModel().getColumn(2).setPreferredWidth(1000);
+				table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(1000);
 
         return table;
 	}
@@ -348,8 +350,11 @@ public class AddressesPanel
 	private String[][] getAddressBalanceDataFromWallet()
 		throws WalletCallException, IOException, InterruptedException
 	{
-		// Z Addresses - they are OK
-		String[] zAddresses = clientCaller.getWalletZAddresses();
+		// Z Addresses 
+		// Modified to get also the Viewing Key
+		List<List> zAdrrData = clientCaller.getWalletZAddresses();
+		List<String> zAddresses = zAdrrData.get(0);
+		List<Boolean> isVKsOnly = zAdrrData.get(1);
 
 		// T Addresses listed with the list received by addr comamnd
 		String[] tAddresses = this.clientCaller.getWalletAllPublicAddresses();
@@ -372,7 +377,7 @@ public class AddressesPanel
 		tAddressesCombined.addAll(tStoredAddressSet);
 		tAddressesCombined.addAll(tAddressSetWithUnspentOuts);
 
-		String[][] addressBalances = new String[zAddresses.length + tAddressesCombined.size()][];
+		String[][] addressBalances = new String[zAddresses.size() + tAddressesCombined.size()][];
 
 		// Format double numbers - else sometimes we get exponential notation 1E-4 BTCZ
 		DecimalFormat df = new DecimalFormat("########0.00######");
@@ -432,12 +437,19 @@ public class AddressesPanel
 			{
 				balanceToShow,
 				isConfirmed ? ("Yes " + confirmed) : ("No  " + notConfirmed),
+				"",
 				addressToDisplay
 			};
 		}
 
-		for (String address : zAddresses)
+
+
+
+		for (int ii = 0; ii < zAddresses.size(); ii++)
 		{
+			boolean isVKonly = isVKsOnly.get(ii);
+			String address = zAddresses.get(ii);
+
 			String confirmedBalance = this.clientCaller.getBalanceForAddress(address);
 			String unconfirmedBalance = this.clientCaller.getUnconfirmedBalanceForAddress(address);
 			boolean isConfirmed =  (confirmedBalance.equals(unconfirmedBalance));
@@ -448,8 +460,10 @@ public class AddressesPanel
 			{
 				balanceToShow,
 				isConfirmed ? ("Yes " + confirmed) : ("No  " + notConfirmed),
+				isVKonly ? ("vk") : (""),
 				address
 			};
+
 		}
 
 		return addressBalances;

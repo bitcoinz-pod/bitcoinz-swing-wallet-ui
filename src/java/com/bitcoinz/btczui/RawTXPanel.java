@@ -52,6 +52,7 @@ import java.math.RoundingMode;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -666,7 +667,7 @@ public class RawTXPanel
 		throws WalletCallException, IOException, InterruptedException
 	{
 		// Z Addresses - they are OK
-		String[] zAddresses = clientCaller.getWalletZAddresses();
+		List<String>  zAddresses = clientCaller.getWalletZAddresses().get(0);
 
 		// T Addresses created inside wallet that may be empty
 		String[] tAddresses = this.clientCaller.getWalletAllPublicAddresses();
@@ -689,7 +690,7 @@ public class RawTXPanel
 		tAddressesCombined.addAll(tStoredAddressSet);
 		tAddressesCombined.addAll(tAddressSetWithUnspentOuts);
 
-		String[][] tempAddressBalances = new String[zAddresses.length + tAddressesCombined.size()][];
+		String[][] tempAddressBalances = new String[zAddresses.size() + tAddressesCombined.size()][];
 
 		int count = 0;
 

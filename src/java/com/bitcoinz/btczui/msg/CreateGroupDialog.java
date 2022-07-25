@@ -35,6 +35,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -259,20 +260,20 @@ public class CreateGroupDialog
 		throws IOException, InterruptedException, WalletCallException
 	{
 		String key = Util.convertGroupPhraseToZPrivateKey(keyPhrase);
+		List<String> zAddresses = caller.getWalletZAddresses().get(0);
 
 		// There is no way (it seems) to find out what Z address was added - we need to
 		// analyze which one it is.
 		// TODO: This relies that noone is importing keys at the same time!
 		Set<String> addressesBeforeAddition = new HashSet<String>();
-		for (String address: this.caller.getWalletZAddresses())
+		for (String address: zAddresses)
 		{
 			addressesBeforeAddition.add(address);
 		}
 
 		CreateGroupDialog.this.caller.importPrivateKey(key);
-
 		Set<String> addressesAfterAddition = new HashSet<String>();
-		for (String address: this.caller.getWalletZAddresses())
+		for (String address : zAddresses)
 		{
 			addressesAfterAddition.add(address);
 		}
@@ -386,8 +387,9 @@ public class CreateGroupDialog
 		throws InterruptedException, WalletCallException, IOException
 	{
 		String address = null;
+		List<String>  zAddresses = caller.getWalletZAddresses().get(0);
 
-		for (String zAddr : this.caller.getWalletZAddresses())
+		for (String zAddr : zAddresses)
 		{
 			String privKey = this.caller.getZPrivateKey(zAddr);
 			if (privKey.equals(key))

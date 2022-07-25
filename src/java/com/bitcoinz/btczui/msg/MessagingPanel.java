@@ -1527,7 +1527,7 @@ public class MessagingPanel
 			if ((ownIdentity != null) && (!this.identityZAddressValidityChecked))
 			{
 				String ownZAddress = ownIdentity.getSendreceiveaddress();
-				String[] walletZaddresses = this.clientCaller.getWalletZAddresses();
+				List<String> walletZaddresses = this.clientCaller.getWalletZAddresses().get(0);
 
 				boolean bFound = false;
 				for (String address : walletZaddresses)

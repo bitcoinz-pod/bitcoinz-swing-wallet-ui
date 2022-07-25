@@ -258,25 +258,48 @@ public class BTCZClientCaller
 	    return strTransactions;
 	}
 
-
-	public synchronized String[] getWalletZAddresses()
+	// Changed to list return to add viewing key
+	public synchronized List<List> getWalletZAddresses()
 		throws WalletCallException, IOException, InterruptedException
 	{
+
+		// Modified for the Viewing key for YODA 2.0.8
+		// TODO : return the VK advice from the cli ?
 		JsonArray jsonAddresses = executeCommandAndGetJsonArray("z_listaddresses", null);
-		String strAddresses[] = new String[jsonAddresses.size()];
+		JsonArray jsonAddressesVK = executeCommandAndGetJsonArray("z_listaddresses", "true");
+		List<String> strAddresses = new ArrayList<String>(); // [jsonAddresses.size()+jsonAddressesVK.size()];
+		List<Boolean> isVKonly = new ArrayList<Boolean>();  //[jsonAddresses.size()+jsonAddressesVK.size()];
+
 		for (int i = 0; i < jsonAddresses.size(); i++)
 		{
-		    strAddresses[i] = jsonAddresses.get(i).asString();
+		    strAddresses.add(jsonAddresses.get(i).asString());
+				isVKonly.add(false);
 		}
 
-	    return strAddresses;
+		// The order of the keys can not be defined (viwing or spending)
+		// Also a secound loop needs to be done to diferiencate it... :-|
+		// TODO: Find a better way or maybe return it from cli directly.
+		for (int i = 0; i < jsonAddressesVK.size(); i++)
+		{
+			if(strAddresses.contains(jsonAddressesVK.get(i).asString()) == false)
+			{
+				strAddresses.add(jsonAddressesVK.get(i).asString());
+				isVKonly.add(true);
+			}
+
+		}
+
+			List<List> retVal = new ArrayList<List>();
+			retVal.add(strAddresses);
+			retVal.add(isVKonly);
+	    return retVal;
 	}
 
 
 	public synchronized String[][] getWalletZReceivedTransactions()
 		throws WalletCallException, IOException, InterruptedException
 	{
-		String[] zAddresses = this.getWalletZAddresses();
+		List<String> zAddresses = this.getWalletZAddresses().get(0);
 
 		List<String[]> zReceivedTransactions = new ArrayList<String[]>();
 

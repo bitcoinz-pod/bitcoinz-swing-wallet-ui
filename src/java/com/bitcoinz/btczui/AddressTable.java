@@ -67,7 +67,7 @@ extends DataTable {
 							if ((lastRow >= 0) && (lastColumn >= 0)){
 								try{
 
-									String address = AddressTable.this.getModel().getValueAt(lastRow, 2).toString();
+									String address = AddressTable.this.getModel().getValueAt(lastRow, 3).toString();
 									boolean isZAddress = Util.isZAddress(address);
 
 									// Check for encrypted wallet
@@ -121,7 +121,7 @@ extends DataTable {
 							if ((lastRow >= 0) && (lastColumn >= 0)){
 								try{
 
-									String address = AddressTable.this.getModel().getValueAt(lastRow, 2).toString();
+									String address = AddressTable.this.getModel().getValueAt(lastRow, 3).toString();
 									boolean isZAddress = Util.isZAddress(address);
 
 									// Check for encrypted wallet
@@ -176,7 +176,7 @@ extends DataTable {
 							if ((lastRow >= 0) && (lastColumn >= 0)){
 								try{
 
-									String address = AddressTable.this.getModel().getValueAt(lastRow, 2).toString();
+									String address = AddressTable.this.getModel().getValueAt(lastRow, 3).toString();
 									boolean isZAddress = Util.isZAddress(address);
 
 									// Check for encrypted wallet
@@ -253,7 +253,7 @@ extends DataTable {
 				{
 					try
 					{
-						String address = AddressTable.this.getModel().getValueAt(lastRow, 2).toString();
+						String address = AddressTable.this.getModel().getValueAt(lastRow, 3).toString();
 						boolean isZAddress = Util.isZAddress(address);
 
 						// Check for encrypted wallet

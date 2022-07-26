@@ -1173,6 +1173,20 @@ public class BTCZClientCaller
 			}
 			else throw new WalletCallException("Unexpected response from wallet: " + strResult); // Obviously an error
 		}
+		// The Viewing Key bigin with z : zxviews1qvnx7...
+		else if (first_letter.equals("Z") || first_letter.equals("z"))
+		{
+			String strResult = this.executeCommandAndGetSingleStringResponse(
+				"-rpcclienttimeout=5000", "z_importviewingkey", wrapStringParameter(key));
+
+				// TODO: Give the possibility to rescan. By default the VK do not rescan.
+
+			if (!strResult.trim().toLowerCase(Locale.ROOT).contains("error"))
+			{
+				return strResult == null ? "" : strResult.trim();
+			}
+			else throw new WalletCallException("Unexpected response from wallet: " + strResult); // Obviously an error
+		}
 		else
 		{
 			throw new WalletCallException(isTestnet == true ? "TestNet private key should start with a '9' or 'c'" : "Single private key should start with L, K, or 5");

@@ -621,6 +621,8 @@ public class SendCashPanel
 
 		lastAddressBalanceData = newAddressBalanceData;
 
+		// TODO: Find a way to remove the VK
+
 		comboBoxItems = new String[lastAddressBalanceData.length];
 		for (int i = 0; i < lastAddressBalanceData.length; i++)
 		{
@@ -651,8 +653,11 @@ public class SendCashPanel
 	private String[][] getAddressPositiveBalanceDataFromWallet()
 		throws WalletCallException, IOException, InterruptedException
 	{
-		// Z Addresses - they are OK
-		List<String> zAddresses = clientCaller.getWalletZAddresses().get(0);
+		// Z Addresses
+		// Modified to get also the Viewing Key
+		List<List> zAdrrData = clientCaller.getWalletZAddresses();
+		List<String> zAddresses = zAdrrData.get(0);
+		List<Boolean> isVKsOnly = zAdrrData.get(1);
 
 		// T Addresses created inside wallet that may be empty
 		String[] tAddresses = this.clientCaller.getWalletAllPublicAddresses();
@@ -686,19 +691,24 @@ public class SendCashPanel
 			{
 				tempAddressBalances[count++] = new String[]
 				{
-					balance, address
+					balance, address, ""
 				};
 			}
 		}
 
+		int k = 0;
 		for (String address : zAddresses)
 		{
 			String balance = this.clientCaller.getBalanceForAddress(address);
+
+			boolean isVKonly = isVKsOnly.get(k);
+			k++;
+
 			if (Double.valueOf(balance) > 0)
 			{
 				tempAddressBalances[count++] = new String[]
 				{
-					balance, address
+					balance, address, isVKonly ? ("vk") : ("")
 				};
 			}
 		}

@@ -587,16 +587,17 @@ public class DashboardPanel
 	private JTable createTransactionsTable(String rowData[][])
 		throws WalletCallException, IOException, InterruptedException
 	{
-		String columnNames[] = { "Type", "Direction", "Confirmed?", "Amount", "Date", "Destination Address"};
+		String columnNames[] = { "Type", "Direction", "Confirmed?", " ", "Amount", "Date", "Destination Address"};
         JTable table = new TransactionTable(
         	rowData, columnNames, this.parentFrame, this.clientCaller, this.installationObserver);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         table.getColumnModel().getColumn(0).setPreferredWidth(190);
         table.getColumnModel().getColumn(1).setPreferredWidth(145);
         table.getColumnModel().getColumn(2).setPreferredWidth(170);
-        table.getColumnModel().getColumn(3).setPreferredWidth(210);
-        table.getColumnModel().getColumn(4).setPreferredWidth(405);
-        table.getColumnModel().getColumn(5).setPreferredWidth(800);
+				table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getColumnModel().getColumn(4).setPreferredWidth(210);
+        table.getColumnModel().getColumn(5).setPreferredWidth(405);
+        table.getColumnModel().getColumn(6).setPreferredWidth(800);
 
         return table;
 	}
@@ -628,15 +629,15 @@ public class DashboardPanel
 			public int compare(String[] o1, String[] o2)
 			{
 				Date d1 = new Date(0);
-				if (!o1[4].equals("N/A"))
+				if (!o1[5].equals("N/A"))
 				{
-					d1 = new Date(Long.valueOf(o1[4]).longValue() * 1000L);
+					d1 = new Date(Long.valueOf(o1[5]).longValue() * 1000L);
 				}
 
 				Date d2 = new Date(0);
-				if (!o2[4].equals("N/A"))
+				if (!o2[5].equals("N/A"))
 				{
-					d2 = new Date(Long.valueOf(o2[4]).longValue() * 1000L);
+					d2 = new Date(Long.valueOf(o2[5]).longValue() * 1000L);
 				}
 
 				if (d1.equals(d2))
@@ -684,23 +685,23 @@ public class DashboardPanel
 			};
 
 			// Date
-			if (!trans[4].equals("N/A"))
+			if (!trans[5].equals("N/A"))
 			{
-				trans[4] = new Date(Long.valueOf(trans[4]).longValue() * 1000L).toLocaleString();
+				trans[5] = new Date(Long.valueOf(trans[5]).longValue() * 1000L).toLocaleString();
 			}
 
 			// Amount
 			try
 			{
-				double amount = Double.valueOf(trans[3]);
+				double amount = Double.valueOf(trans[4]);
 				if (amount < 0d)
 				{
 					amount = -amount;
 				}
-				trans[3] = df.format(amount);
+				trans[4] = df.format(amount);
 			} catch (NumberFormatException nfe)
 			{
-				Log.error("Error occurred while formatting amount: " + trans[3] +
+				Log.error("Error occurred while formatting amount: " + trans[4] +
 						           " - " + nfe.getMessage() + "!");
 			}
 

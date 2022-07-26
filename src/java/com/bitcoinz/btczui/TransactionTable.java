@@ -87,7 +87,7 @@ public class TransactionTable
 				{
 					try
 					{
-						String txID = TransactionTable.this.getModel().getValueAt(lastRow, 6).toString();
+						String txID = TransactionTable.this.getModel().getValueAt(lastRow, 7).toString();
 						txID = txID.replaceAll("\"", ""); // In case it has quotes
 
 						Log.info("Transaction ID for detail dialog is: " + txID);
@@ -160,10 +160,10 @@ public class TransactionTable
 					Cursor oldCursor = parent.getCursor();
 					try
 					{
-						String txID = TransactionTable.this.getModel().getValueAt(lastRow, 6).toString();
+						String txID = TransactionTable.this.getModel().getValueAt(lastRow, 7).toString();
 						txID = txID.replaceAll("\"", ""); // In case it has quotes
 
-						String acc = TransactionTable.this.getModel().getValueAt(lastRow, 5).toString();
+						String acc = TransactionTable.this.getModel().getValueAt(lastRow, 6).toString();
 						acc = acc.replaceAll("\"", ""); // In case it has quotes
 
 						boolean isZAddress = Util.isZAddress(acc);

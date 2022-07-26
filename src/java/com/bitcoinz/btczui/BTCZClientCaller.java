@@ -240,7 +240,7 @@ public class BTCZClientCaller
 	    String strTransactions[][] = new String[jsonTransactions.size()][];
 	    for (int i = 0; i < jsonTransactions.size(); i++)
 	    {
-	    	strTransactions[i] = new String[7];
+	    	strTransactions[i] = new String[8];
 	    	JsonObject trans = jsonTransactions.get(i).asObject();
 
 	    	// Needs to be the same as in getWalletZReceivedTransactions()
@@ -248,10 +248,11 @@ public class BTCZClientCaller
 	    	strTransactions[i][0] = "\u2606T (Public)";
 	    	strTransactions[i][1] = trans.getString("category", "ERROR!");
 	    	strTransactions[i][2] = trans.get("confirmations").toString();
-	    	strTransactions[i][3] = trans.get("amount").toString();
-	    	strTransactions[i][4] = trans.get("time").toString();
-	    	strTransactions[i][5] = trans.getString("address", notListed + " (Z Address not listed by wallet!)");
-	    	strTransactions[i][6] = trans.get("txid").toString();
+				strTransactions[i][3] = " ";
+	    	strTransactions[i][4] = trans.get("amount").toString();
+	    	strTransactions[i][5] = trans.get("time").toString();
+	    	strTransactions[i][6] = trans.getString("address", notListed + " (Z Address not listed by wallet!)");
+	    	strTransactions[i][7] = trans.get("txid").toString();
 
 	    }
 
@@ -299,17 +300,26 @@ public class BTCZClientCaller
 	public synchronized String[][] getWalletZReceivedTransactions()
 		throws WalletCallException, IOException, InterruptedException
 	{
-		List<String> zAddresses = this.getWalletZAddresses().get(0);
+
+		// Modified to get also the Viewing Key
+		List<List> zAdrrData = this.getWalletZAddresses();
+		List<String> zAddresses = zAdrrData.get(0);
+		List<Boolean> isVKsOnly = zAdrrData.get(1);
 
 		List<String[]> zReceivedTransactions = new ArrayList<String[]>();
 
+		int k = 0;
 		for (String zAddress : zAddresses)
 		{
+
+				boolean isVKonly = isVKsOnly.get(k);
+				k++;
+
 		    JsonArray jsonTransactions = executeCommandAndGetJsonArray(
 		    	"z_listreceivedbyaddress", wrapStringParameter(zAddress), "0");
 		    for (int i = 0; i < jsonTransactions.size(); i++)
 		    {
-		    	String[] currentTransaction = new String[7];
+		    	String[] currentTransaction = new String[8];
 		    	JsonObject trans = jsonTransactions.get(i).asObject();
 
 		    	String txID = trans.getString("txid", "ERROR!");
@@ -318,10 +328,11 @@ public class BTCZClientCaller
 		    	currentTransaction[0] = "\u2605Z (Private)";
 		    	currentTransaction[1] = "receive";
 		    	currentTransaction[2] = this.getWalletTransactionConfirmations(txID);
-		    	currentTransaction[3] = trans.get("amount").toString();
-		    	currentTransaction[4] = this.getWalletTransactionTime(txID); // TODO: minimize sub-calls
-		    	currentTransaction[5] = zAddress;
-		    	currentTransaction[6] = trans.get("txid").toString();
+					currentTransaction[3] = isVKonly ? ("vk") : ("");
+		    	currentTransaction[4] = trans.get("amount").toString();
+		    	currentTransaction[5] = this.getWalletTransactionTime(txID); // TODO: minimize sub-calls
+		    	currentTransaction[6] = zAddress;
+		    	currentTransaction[7] = trans.get("txid").toString();
 
 		    	zReceivedTransactions.add(currentTransaction);
 		    }

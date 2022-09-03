@@ -1,5 +1,5 @@
 Package: bitcoinz-wallet
-Version: 2.0.8-rc1
+Version: 2.0.8
 Section: misc
 Priority: low
 Architecture: all

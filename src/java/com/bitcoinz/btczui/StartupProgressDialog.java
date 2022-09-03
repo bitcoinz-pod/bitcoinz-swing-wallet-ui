@@ -74,7 +74,7 @@ public class StartupProgressDialog extends JFrame {
         contentPane.add(imageLabel, BorderLayout.NORTH);
     		JLabel bitcoinzWalletLabel = new JLabel(
     			"<html><b><span style=\"font-weight:bold;font-size:2.2em\">" +
-    		  "BitcoinZ Wallet UI</span></b><br>&nbsp;Version 2.0.8-rc1</html>");
+    		  "BitcoinZ Wallet UI</span></b><br>&nbsp;Version 2.0.8</html>");
 
     		bitcoinzWalletLabel.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
     		// todo - place in a panel with flow center

@@ -1,4 +1,4 @@
-# BitcoinZ Wallet 2.0.8-rc1
+# BitcoinZ Wallet 2.0.8
 
 [Download here](https://github.com/btcz/bitcoinz-wallet/releases)
 

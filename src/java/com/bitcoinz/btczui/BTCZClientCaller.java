@@ -264,7 +264,7 @@ public class BTCZClientCaller
 		throws WalletCallException, IOException, InterruptedException
 	{
 
-		// Modified for the Viewing key for YODA 2.0.8
+		// Modified for the Viewing key for YODA 2.0.10
 		// TODO : return the VK advice from the cli ?
 		JsonArray jsonAddresses = executeCommandAndGetJsonArray("z_listaddresses", null);
 		JsonArray jsonAddressesVK = executeCommandAndGetJsonArray("z_listaddresses", "true");

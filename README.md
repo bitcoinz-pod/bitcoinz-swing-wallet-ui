@@ -1,4 +1,4 @@
-# BitcoinZ Wallet 2.0.8
+# BitcoinZ Wallet 2.0.10
 
 [Download here](https://github.com/btcz/bitcoinz-wallet/releases)
 
@@ -83,7 +83,7 @@ The details of how to build it are described below (easy to follow).
 
    3.1. If you have built BitcoinZ from source code:
 
-     Assuming you have already built from source code [BitcoinZ](https://github.com/btcz/bitcoinz) in directory `/home/user/bitcoinz/src` (for example - this is the typical build dir. for bitcoinz v2.0.8) which contains the command line tools `bitcoinz-cli` and `bitcoinzd` you need to take the created file `./build/jars/BitcoinZWallet.jar` and copy it to directory `/home/user/bitcoinz/src` (the same dir. that contains `bitcoinz-cli` and `bitcoinzd`). Example copy command:
+     Assuming you have already built from source code [BitcoinZ](https://github.com/btcz/bitcoinz) in directory `/home/user/bitcoinz/src` (for example - this is the typical build dir. for bitcoinz v2.0.10) which contains the command line tools `bitcoinz-cli` and `bitcoinzd` you need to take the created file `./build/jars/BitcoinZWallet.jar` and copy it to directory `/home/user/bitcoinz/src` (the same dir. that contains `bitcoinz-cli` and `bitcoinzd`). Example copy command:
       ```
       cp ./build/jars/BitcoinZWallet.jar /home/user/zen/src    
       ```

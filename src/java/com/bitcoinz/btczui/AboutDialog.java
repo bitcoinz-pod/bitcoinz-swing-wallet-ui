@@ -86,7 +86,7 @@ public class AboutDialog extends JDialog{
 			" |____/ | |   | |/ /   / / \\ \\| |  | |\\ | |  / / \\ \\ /\\ / / _` | | |/ _ \\ __| | | || |  \n" +
 			" | ___ \\| |_  | |\\ \\__ \\ \\_/ /| |_ | | \\  | / /_  \\ V  V / (_| | | |  __/ |_| |_| || |  \n" +
 			" |_____/____| |_| \\____|\\___/_____||_|  \\_|/____|  \\_/\\_/ \\__,_|_|_|\\___|\\__|\\___/|___| \n" +
-			"  Version 2.0.8 \n \n"  +
+			"  Version 2.0.10 \n \n"  +
 
 		    " Copyright (c) 2017-2022 BitcoinZ team \n" +
 		    " Copyright (c) 2016-2018 Ivan Vaklinov &lt;ivan@vaklinov.com&gt; \n" +
@@ -128,7 +128,7 @@ public class AboutDialog extends JDialog{
 		aboutNORTH_CENTER.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		aboutNORTH_CENTER.setText(
 				"<html><b><span style='font-weight:bold;font-size:2.3em'>" +
-				"BitcoinZ Wallet UI</span></b><br>&nbsp;Version 2.0.8</html>");
+				"BitcoinZ Wallet UI</span></b><br>&nbsp;Version 2.0.10</html>");
 
 		// About description
 		JLabel aboutCENTER = new JLabel();
@@ -181,7 +181,7 @@ public class AboutDialog extends JDialog{
 				"<html>" +
 					"<div style='display: table; padding: 10px; height: 400px; max-width: 600px; overflow: hidden;'>  " +
 
-					"<b><u>v2.0.8 (SEP-2022)</u></b><br>"+
+					"<b><u>v2.0.10 (SEP-2022)</u></b><br>"+
 					"- Added Viewing key import and usage. <br><br>"+
 
 						"<b><u>v2.0.7-u3 (MAY-2022)</u></b><br>"+
